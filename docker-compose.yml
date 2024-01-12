@@ -1,0 +1,31 @@
+version: "2.3"
+services:
+  database:
+    image: postgres:12
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: Password123
+      POSTGRES_DB: forest-images
+    ports:
+      - "5432:5432"
+    networks:
+      - forest_network
+    volumes:
+      - db-data:/var/lib/postgresql/data
+
+  pgadmin4:
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@admin.com
+      PGADMIN_DEFAULT_PASSWORD: Password123
+    ports:
+      - "8090:80"
+    networks:
+      - forest_network
+networks:
+  forest_network:
+    driver: bridge
+
+volumes:
+  db-data:
